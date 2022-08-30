@@ -20,3 +20,15 @@ C:\Users\Martin\Desktop\CarpinteriaApp\CarpinteriaApp\obj\Debug\CarpinteriaApp.c
 C:\Users\Martin\Desktop\CarpinteriaApp\CarpinteriaApp\obj\Debug\CarpinteriaApp.csproj.CoreCompileInputs.cache
 C:\Users\Martin\Desktop\CarpinteriaApp\CarpinteriaApp\obj\Debug\CarpinteriaApp.exe
 C:\Users\Martin\Desktop\CarpinteriaApp\CarpinteriaApp\obj\Debug\CarpinteriaApp.pdb
+D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\bin\Debug\CarpinteriaApp.exe.config
+D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\bin\Debug\CarpinteriaApp.exe
+D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\bin\Debug\CarpinteriaApp.pdb
+D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\obj\Debug\CarpinteriaApp.csproj.AssemblyReference.cache
+D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\obj\Debug\CarpinteriaApp.csproj.SuggestedBindingRedirects.cache
+D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\obj\Debug\CarpinteriaApp.formularios.Frm_Alta_Presupuesto.resources
+D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\obj\Debug\CarpinteriaApp.formularios.Principal.resources
+D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\obj\Debug\CarpinteriaApp.Properties.Resources.resources
+D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\obj\Debug\CarpinteriaApp.csproj.GenerateResource.cache
+D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\obj\Debug\CarpinteriaApp.csproj.CoreCompileInputs.cache
+D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\obj\Debug\CarpinteriaApp.exe
+D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\obj\Debug\CarpinteriaApp.pdb

@@ -56,10 +56,28 @@
     <Compile Include="formularios\Frm_Alta_Presupuesto.Designer.cs">
       <DependentUpon>Frm_Alta_Presupuesto.cs</DependentUpon>
     </Compile>
+    <Compile Include="formularios\Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formularios\Principal.Designer.cs">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formularios\Productos\FrmConsultarProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formularios\Productos\FrmConsultarProductos.Designer.cs">
+      <DependentUpon>FrmConsultarProductos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="formularios\Frm_Alta_Presupuesto.resx">
       <DependentUpon>Frm_Alta_Presupuesto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formularios\Principal.resx">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formularios\Productos\FrmConsultarProductos.resx">
+      <DependentUpon>FrmConsultarProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
