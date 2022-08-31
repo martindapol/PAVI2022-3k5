@@ -12,22 +12,29 @@ namespace CarpinteriaApp.datos
 {
     class HelperDB
     {
-        private SqlConnection cnn; 
+        private SqlConnection cnn;
 
         public HelperDB()
         {
-            cnn = new SqlConnection(Properties.Resources.cnnString); 
+            cnn = new SqlConnection(Properties.Resources.cnnString);
         }
 
-        public DataTable ConsultaSQL(string strSql)
+        public DataTable ConsultaSQL(string strSql, List<Parametro> lst)
         {
             SqlCommand cmd = new SqlCommand();
             DataTable tabla = new DataTable();
 
             cnn.Open();
             cmd.Connection = cnn;
-            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandType = CommandType.Text;
             cmd.CommandText = strSql;
+
+            //if (lst != null && lst.Count > 0)
+            foreach (Parametro p in lst)
+            {
+                cmd.Parameters.AddWithValue(p.Nombre, p.Valor);
+            }
+
             tabla.Load(cmd.ExecuteReader());
             cnn.Close();
 
@@ -35,15 +42,21 @@ namespace CarpinteriaApp.datos
         }
 
 
-
-        public int EjecutarSQL(string strSql, CommandType type)
+        //Permite ejecutar INSERT/UPDATE/DELETE
+        //a partir de una consulta SQL con parametros
+        public int EjecutarSQL(string strSql, List<Parametro> lst)
         {
             int afectadas = 0;
-            SqlConnection cnn = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
             cnn.Open();
             cmd.Connection = cnn;
             cmd.CommandText = strSql;
+
+            foreach (Parametro p in lst)
+            {
+                cmd.Parameters.AddWithValue(p.Nombre, p.Valor);
+            }
+
             afectadas = cmd.ExecuteNonQuery();
             cnn.Close();
 
@@ -62,7 +75,7 @@ namespace CarpinteriaApp.datos
             pOut.DbType = DbType.Int32;
             pOut.Direction = ParameterDirection.Output;
             cmd.Parameters.Add(pOut);
-            cmd.ExecuteNonQuery();    
+            cmd.ExecuteNonQuery();
 
             cnn.Close();
             return (int)pOut.Value;
@@ -95,7 +108,7 @@ namespace CarpinteriaApp.datos
 
             SqlCommand cmdDetalle;
             int detalleNro = 1;
-            foreach(DetallePresupuesto item in oPresupuesto.Detalles)
+            foreach (DetallePresupuesto item in oPresupuesto.Detalles)
             {
                 cmdDetalle = new SqlCommand();
 

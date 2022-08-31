@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarpinteriaApp.formularios.Productos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,5 +23,24 @@ namespace CarpinteriaApp.formularios
             new Frm_Alta_Presupuesto().ShowDialog();
         }
 
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("App Presupuestos Carpintería V1.0");
+        }
+
+        private void gestionarProductosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FrmConsultarProductos().ShowDialog();
+        }
+
+        private void nuevoProductoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FrmNuevoProducto().ShowDialog();
+        }
     }
 }

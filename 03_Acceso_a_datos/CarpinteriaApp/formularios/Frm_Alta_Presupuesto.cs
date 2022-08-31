@@ -99,7 +99,7 @@ namespace CarpinteriaApp.formularios
 
         private void CargarProductos()
         {
-            DataTable table = gestor.ConsultaSQL("SP_CONSULTAR_PRODUCTOS");
+            DataTable table = null;//gestor.ConsultaSQL("SP_CONSULTAR_PRODUCTOS");
             if (table != null)
             {
                 cboProductos.DataSource = table;

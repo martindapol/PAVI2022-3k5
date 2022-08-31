@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="datos\HelperDB.cs" />
+    <Compile Include="datos\Parametro.cs" />
     <Compile Include="dominio\DetallePresupuesto.cs" />
     <Compile Include="dominio\Presupuesto.cs" />
     <Compile Include="dominio\Producto.cs" />
@@ -68,6 +69,12 @@
     <Compile Include="formularios\Productos\FrmConsultarProductos.Designer.cs">
       <DependentUpon>FrmConsultarProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="formularios\Productos\FrmNuevoProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formularios\Productos\FrmNuevoProducto.Designer.cs">
+      <DependentUpon>FrmNuevoProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="formularios\Frm_Alta_Presupuesto.resx">
@@ -78,6 +85,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formularios\Productos\FrmConsultarProductos.resx">
       <DependentUpon>FrmConsultarProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formularios\Productos\FrmNuevoProducto.resx">
+      <DependentUpon>FrmNuevoProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

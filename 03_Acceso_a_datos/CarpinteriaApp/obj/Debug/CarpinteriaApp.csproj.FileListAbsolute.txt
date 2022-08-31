@@ -32,3 +32,5 @@ D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\obj\Debug\Carpin
 D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\obj\Debug\CarpinteriaApp.csproj.CoreCompileInputs.cache
 D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\obj\Debug\CarpinteriaApp.exe
 D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\obj\Debug\CarpinteriaApp.pdb
+D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\obj\Debug\CarpinteriaApp.formularios.Productos.FrmConsultarProductos.resources
+D:\UTN\PAV I 2022\PAVI2022-3k5\03_Acceso_a_datos\CarpinteriaApp\obj\Debug\CarpinteriaApp.formularios.Productos.FrmNuevoProducto.resources
