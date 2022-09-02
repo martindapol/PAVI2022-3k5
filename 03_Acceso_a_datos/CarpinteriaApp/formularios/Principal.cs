@@ -30,7 +30,7 @@ namespace CarpinteriaApp.formularios
 
         private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("App Presupuestos Carpintería V1.0");
+            MessageBox.Show("App Presupuestos Carpintería V1.0", "PAVI2022", MessageBoxButtons.OK, MessageBoxIcon.Information );
         }
 
         private void gestionarProductosToolStripMenuItem_Click(object sender, EventArgs e)

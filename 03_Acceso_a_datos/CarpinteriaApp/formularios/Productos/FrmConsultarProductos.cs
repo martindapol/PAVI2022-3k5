@@ -39,20 +39,28 @@ namespace CarpinteriaApp.formularios.Productos
                 query += " AND activo = 'N'";
             }
 
-           List<Parametro> lst = new List<Parametro>();
-           /* lst.Add(new Parametro("@nombre", txtNombre.Text));
-           */
+            List<Parametro> lst = new List<Parametro>();
+            /* lst.Add(new Parametro("@nombre", txtNombre.Text));
+            */
             DataTable resultados = new HelperDB().ConsultaSQL(query, lst);
             //Limpiar grilla
             dgvProductos.Rows.Clear();
-            
+
             //Volver a cargar
-            foreach(DataRow fila in resultados.Rows)
+            foreach (DataRow fila in resultados.Rows)
             {
-                bool activo = fila["activo"].ToString().Equals("S");           
+                bool activo = fila["activo"].ToString().Equals("S");
                 dgvProductos.Rows.Add(new object[] { fila["n_producto"].ToString(), fila["precio"].ToString(), activo });
             }
 
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Seguro que desea salir?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
     }
 }
