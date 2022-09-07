@@ -1,4 +1,5 @@
 ﻿using CarpinteriaApp.datos;
+using CarpinteriaApp.dominio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,8 @@ namespace CarpinteriaApp.formularios.Productos
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            new FrmNuevoProducto().ShowDialog();
+            new FrmNuevoProducto(1, new Producto()).ShowDialog();
+            this.btnConsultar_Click(null, null);
         }
 
         private void btnConsultar_Click(object sender, EventArgs e)
@@ -45,15 +47,29 @@ namespace CarpinteriaApp.formularios.Productos
             DataTable resultados = new HelperDB().ConsultaSQL(query, lst);
             //Limpiar grilla
             dgvProductos.Rows.Clear();
+            if (resultados.Rows.Count > 0) { 
+                //Volver a cargar
+                foreach (DataRow fila in resultados.Rows)
+                {
+                    bool activo = fila["activo"].ToString().Equals("S");
 
-            //Volver a cargar
-            foreach (DataRow fila in resultados.Rows)
-            {
-                bool activo = fila["activo"].ToString().Equals("S");
-                dgvProductos.Rows.Add(new object[] { fila["n_producto"].ToString(), fila["precio"].ToString(), activo });
+                    int id = (int)fila["id_producto"];
+                    dgvProductos.Rows.Add(new object[] { fila["n_producto"].ToString(), fila["precio"], activo, id });
+                }
+                habitarControles(true);
             }
-
+            else
+            {
+                habitarControles(false);
+            }
         }
+
+        private void habitarControles(bool v)
+        {
+            btnEditar.Enabled = v;
+            btnEliminar.Enabled = v;
+        }
+    
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
@@ -62,5 +78,35 @@ namespace CarpinteriaApp.formularios.Productos
                 this.Close();
             }
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {   DataGridViewRow fila = dgvProductos.CurrentRow;
+            if ( fila != null)
+            {
+                new FrmNuevoProducto(3, mapper(fila)).ShowDialog();
+                this.btnConsultar_Click(null, null);
+            }
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow fila = dgvProductos.CurrentRow;
+            if (fila != null)
+            {
+                new FrmNuevoProducto(2, mapper(fila)).ShowDialog();
+                this.btnConsultar_Click(null, null);
+            }
+        }
+
+        private Producto mapper(DataGridViewRow fila)
+        {
+            Producto oSeleted = new Producto();
+            oSeleted.Nombre = fila.Cells["colNombre"].Value.ToString();
+            oSeleted.Precio = double.Parse(fila.Cells["colPrecio"].Value.ToString());
+            oSeleted.Activo = (bool)fila.Cells["colActivo"].Value;
+            oSeleted.ProductoNro = (int)fila.Cells["colId"].Value;
+            return oSeleted;
+        }
+
     }
 }

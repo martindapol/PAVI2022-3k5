@@ -1,4 +1,5 @@
 ﻿using CarpinteriaApp.datos;
+using CarpinteriaApp.dominio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,9 +14,14 @@ namespace CarpinteriaApp.formularios.Productos
 {
     public partial class FrmNuevoProducto : Form
     {
-        public FrmNuevoProducto()
+        private int accion; // 1-2-3
+        private Producto oProducto;
+
+        public FrmNuevoProducto(int accion, Producto oProducto)
         {
             InitializeComponent();
+            this.accion = accion;
+            this.oProducto = oProducto;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -25,6 +31,7 @@ namespace CarpinteriaApp.formularios.Productos
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+
             //1. Validar los datos obligatorios y los tipos de datos
             if (String.IsNullOrEmpty(txtNombre.Text))
             {
@@ -38,25 +45,97 @@ namespace CarpinteriaApp.formularios.Productos
                 activo = "S";
             */
 
-            string activo = chkActivo.Checked ? "S" : "N";
-            List<Parametro> lst = new List<Parametro>();
-            lst.Add(new Parametro("@nombre", txtNombre.Text));
-            lst.Add(new Parametro("@precio", nudPrecio.Value));
-            lst.Add(new Parametro("@activo", activo));
-
-
-            string insert = "INSERT INTO T_PRODUCTOS (n_producto, precio, activo) VALUES(@nombre, @precio, @activo)";
-            int respuesta = new HelperDB().EjecutarSQL(insert, lst);
-
-            if (respuesta == 1)
+            if (accion == 1)
             {
-                MessageBox.Show("Producto insertado!", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+
+                string activo = chkActivo.Checked ? "S" : "N";
+                List<Parametro> lst = new List<Parametro>();
+                lst.Add(new Parametro("@nombre", txtNombre.Text));
+                lst.Add(new Parametro("@precio", nudPrecio.Value));
+                lst.Add(new Parametro("@activo", activo));
+
+
+                string insert = "INSERT INTO T_PRODUCTOS (n_producto, precio, activo) VALUES(@nombre, @precio, @activo)";
+                int respuesta = new HelperDB().EjecutarSQL(insert, lst);
+
+                if (respuesta == 1)
+                {
+                    MessageBox.Show("Producto insertado!", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Ha ocurrido un error al insertar el producto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }else if(accion == 3)
+            {
+                List<Parametro> lst = new List<Parametro>();
+                lst.Add(new Parametro("@id", oProducto.ProductoNro));
+                //Baja física:
+                //string delete = "DELETE FROM T_PRODUCTOS WHERE id_producto = @id";
+
+                //baja lógica:
+                string delete = "UPDATE T_PRODUCTOS SET activo = 'N' WHERE id_producto = @id";
+
+                int respuesta = new HelperDB().EjecutarSQL(delete, lst);
+
+                if (respuesta == 1)
+                {
+                    MessageBox.Show("Producto eliminado!", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Ha ocurrido un error al borrar el producto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
-                MessageBox.Show("Ha ocurrido un error al insertar el producto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //Editar:
+                List<Parametro> lst = new List<Parametro>();
+                lst.Add(new Parametro("@id", oProducto.ProductoNro));
+                lst.Add(new Parametro("@nombre", txtNombre.Text));
+                lst.Add(new Parametro("@precio", nudPrecio.Value));
+
+                string update = "UPDATE T_PRODUCTOS SET n_producto = @nombre, precio = @precio WHERE id_producto = @id";
+
+                int respuesta = new HelperDB().EjecutarSQL(update, lst);
+
+                if (respuesta == 1)
+                {
+                    MessageBox.Show("Producto actualizado!", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Ha ocurrido un error al actualizar el producto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
         }
+
+        private void FrmNuevoProducto_Load(object sender, EventArgs e)
+        {
+            if (accion != 1) // Editar o Borrar
+            {
+                txtNombre.Text = oProducto.Nombre;
+                nudPrecio.Value = (decimal)oProducto.Precio;
+                chkActivo.Checked = oProducto.Activo;
+
+                if (accion == 3)
+                {
+                    gbDatos.Enabled = false;
+                    this.Text = "Registrar baja de Producto";
+                }
+                else
+                {
+                    this.Text = "Modificar Producto";
+                }
+
+            }
+            
+        }
+
+        
     }
 }

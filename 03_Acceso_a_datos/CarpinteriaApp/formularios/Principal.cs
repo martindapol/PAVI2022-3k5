@@ -1,4 +1,5 @@
-﻿using CarpinteriaApp.formularios.Productos;
+﻿using CarpinteriaApp.dominio;
+using CarpinteriaApp.formularios.Productos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,7 +41,7 @@ namespace CarpinteriaApp.formularios
 
         private void nuevoProductoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new FrmNuevoProducto().ShowDialog();
+            new FrmNuevoProducto(1, new Producto()).ShowDialog();
         }
     }
 }

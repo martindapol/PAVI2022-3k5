@@ -59,6 +59,7 @@
             this.chkActivo.AutoSize = true;
             this.chkActivo.Checked = true;
             this.chkActivo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkActivo.Enabled = false;
             this.chkActivo.Location = new System.Drawing.Point(75, 106);
             this.chkActivo.Name = "chkActivo";
             this.chkActivo.Size = new System.Drawing.Size(56, 17);
@@ -148,6 +149,7 @@
             this.Name = "FrmNuevoProducto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Registrar nuevo producto";
+            this.Load += new System.EventHandler(this.FrmNuevoProducto_Load);
             this.gbDatos.ResumeLayout(false);
             this.gbDatos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).EndInit();
