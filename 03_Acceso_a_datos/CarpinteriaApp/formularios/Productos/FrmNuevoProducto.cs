@@ -1,5 +1,6 @@
 ﻿using CarpinteriaApp.datos;
 using CarpinteriaApp.dominio;
+using CarpinteriaApp.servicios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,12 +17,13 @@ namespace CarpinteriaApp.formularios.Productos
     {
         private int accion; // 1-2-3
         private Producto oProducto;
-
+        private GestorProducto gestor;
         public FrmNuevoProducto(int accion, Producto oProducto)
         {
             InitializeComponent();
             this.accion = accion;
             this.oProducto = oProducto;
+            gestor = new GestorProducto();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -47,17 +49,8 @@ namespace CarpinteriaApp.formularios.Productos
 
             if (accion == 1)
             {
-
-                string activo = chkActivo.Checked ? "S" : "N";
-                List<Parametro> lst = new List<Parametro>();
-                lst.Add(new Parametro("@nombre", txtNombre.Text));
-                lst.Add(new Parametro("@precio", nudPrecio.Value));
-                lst.Add(new Parametro("@activo", activo));
-
-
-                string insert = "INSERT INTO T_PRODUCTOS (n_producto, precio, activo) VALUES(@nombre, @precio, @activo)";
-                int respuesta = new HelperDB().EjecutarSQL(insert, lst);
-
+                int respuesta =  gestor.CrearProducto(oProducto);
+                
                 if (respuesta == 1)
                 {
                     MessageBox.Show("Producto insertado!", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);

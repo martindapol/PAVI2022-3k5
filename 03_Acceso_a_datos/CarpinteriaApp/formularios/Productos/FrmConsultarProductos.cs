@@ -1,5 +1,6 @@
 ﻿using CarpinteriaApp.datos;
 using CarpinteriaApp.dominio;
+using CarpinteriaApp.servicios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,34 +28,17 @@ namespace CarpinteriaApp.formularios.Productos
 
         private void btnConsultar_Click(object sender, EventArgs e)
         {
-            string query = "SELECT * FROM T_PRODUCTOS WHERE 1=1";
-            if (!string.IsNullOrEmpty(txtNombre.Text))
-            {
-                query += " AND n_producto LIKE '%" + txtNombre.Text + "%'";
-            }
-            if (chkActivos.Checked)
-            {
-                query += " AND activo = 'S'";
-            }
-            else
-            {
-                query += " AND activo = 'N'";
-            }
-
-            List<Parametro> lst = new List<Parametro>();
-            /* lst.Add(new Parametro("@nombre", txtNombre.Text));
-            */
-            DataTable resultados = new HelperDB().ConsultaSQL(query, lst);
+            //Generar una dependencia hacia el servicio:
+            GestorProducto gestor = new GestorProducto();
+            List<Producto> lista = gestor.ConsultarProductosFiltro(txtNombre.Text, chkActivos.Checked);
             //Limpiar grilla
             dgvProductos.Rows.Clear();
-            if (resultados.Rows.Count > 0) { 
+            if (lista.Count > 0)
+            {
                 //Volver a cargar
-                foreach (DataRow fila in resultados.Rows)
+                foreach (Producto oProducto in lista)
                 {
-                    bool activo = fila["activo"].ToString().Equals("S");
-
-                    int id = (int)fila["id_producto"];
-                    dgvProductos.Rows.Add(new object[] { fila["n_producto"].ToString(), fila["precio"], activo, id });
+                    dgvProductos.Rows.Add(new object[] { oProducto.Nombre, oProducto.Precio, oProducto.Activo, oProducto.ProductoNro });
                 }
                 habitarControles(true);
             }
@@ -69,19 +53,20 @@ namespace CarpinteriaApp.formularios.Productos
             btnEditar.Enabled = v;
             btnEliminar.Enabled = v;
         }
-    
+
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            if(MessageBox.Show("Seguro que desea salir?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Seguro que desea salir?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 this.Close();
             }
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
-        {   DataGridViewRow fila = dgvProductos.CurrentRow;
-            if ( fila != null)
+        {
+            DataGridViewRow fila = dgvProductos.CurrentRow;
+            if (fila != null)
             {
                 new FrmNuevoProducto(3, mapper(fila)).ShowDialog();
                 this.btnConsultar_Click(null, null);
