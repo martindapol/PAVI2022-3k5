@@ -70,7 +70,7 @@ namespace CarpinteriaApp.formularios.Productos
                 //baja lógica:
                 string delete = "UPDATE T_PRODUCTOS SET activo = 'N' WHERE id_producto = @id";
 
-                int respuesta = new HelperDB().EjecutarSQL(delete, lst);
+                int respuesta = HelperDB.GetInstancia().EjecutarSQL(delete, lst);
 
                 if (respuesta == 1)
                 {
@@ -92,7 +92,7 @@ namespace CarpinteriaApp.formularios.Productos
 
                 string update = "UPDATE T_PRODUCTOS SET n_producto = @nombre, precio = @precio WHERE id_producto = @id";
 
-                int respuesta = new HelperDB().EjecutarSQL(update, lst);
+                int respuesta = HelperDB.GetInstancia().EjecutarSQL(update, lst);
 
                 if (respuesta == 1)
                 {

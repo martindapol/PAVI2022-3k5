@@ -1,6 +1,8 @@
 ﻿using CarpinteriaApp.datos;
 using CarpinteriaApp.dominio;
+using CarpinteriaApp.servicios;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -9,12 +11,12 @@ namespace CarpinteriaApp.formularios
 {
     public partial class Frm_Alta_Presupuesto : Form
     {
-        private HelperDB gestor;
+        private GestorPresupuesto gestor;
         private Presupuesto nuevo;
         public Frm_Alta_Presupuesto()
         {
             InitializeComponent();
-            gestor = new HelperDB();
+            gestor = new GestorPresupuesto();
             CargarProductos();
             //Crear nuevo presupuesto:
             nuevo = new Presupuesto();
@@ -56,17 +58,12 @@ namespace CarpinteriaApp.formularios
                 }
             }
 
-            DataRowView item = (DataRowView)cboProductos.SelectedItem;
-
-            int prod = Convert.ToInt32(item.Row.ItemArray[0]);
-            string nom = item.Row.ItemArray[1].ToString();
-            double pre = Convert.ToDouble(item.Row.ItemArray[2]);
-            Producto p = new Producto(prod, nom, pre);
+            Producto p = (Producto)cboProductos.SelectedItem;
             int cantidad = Convert.ToInt32(txtCantidad.Text);
 
             DetallePresupuesto detalle = new DetallePresupuesto(p, cantidad);
             nuevo.AgregarDetalle(detalle);
-            dgvDetalles.Rows.Add(new object[] { item.Row.ItemArray[0], item.Row.ItemArray[1], item.Row.ItemArray[2], txtCantidad.Text });
+            dgvDetalles.Rows.Add(new object[] { p.ProductoNro, p.Nombre, p.Precio, cantidad});
 
             CalcularTotal();
         }
@@ -99,17 +96,19 @@ namespace CarpinteriaApp.formularios
 
         private void CargarProductos()
         {
-            DataTable table = null;//gestor.ConsultaSQL("SP_CONSULTAR_PRODUCTOS");
-            if (table != null)
+            GestorProducto gestorProducto = new GestorProducto();
+
+            List<Producto> lst = gestorProducto.ConsultarProductosFiltro("", true);//gestor.ConsultaSQL("SP_CONSULTAR_PRODUCTOS");
+            if (lst != null)
             {
-                cboProductos.DataSource = table;
-                cboProductos.DisplayMember = "n_producto";
-                cboProductos.ValueMember = "id_producto";
+                cboProductos.DataSource = lst;
+                cboProductos.DisplayMember = "Nombre";
+                cboProductos.ValueMember = "ProductoNro";
             }
         }
         private void ProximoPresupuesto()
         {
-            int next = gestor.ProximoPresupuesto();
+            int next = gestor.ObtenerUltimoId();
             if (next > 0)
                 lblNroPresupuesto.Text = "Presupuesto Nº: " + next.ToString();
             else

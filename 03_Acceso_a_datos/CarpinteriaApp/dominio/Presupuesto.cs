@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CarpinteriaApp.dominio
 {
-    class Presupuesto
+    public class Presupuesto
     {
         public int PresupuestoNro { get; set; }
         public DateTime Fecha { get; set; }

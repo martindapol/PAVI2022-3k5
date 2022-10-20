@@ -64,7 +64,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="datos\Dao\IPresupuestoDao.cs" />
     <Compile Include="datos\Dao\IProductoDao.cs" />
+    <Compile Include="datos\Dao\PresupuestoDao.cs" />
     <Compile Include="datos\Dao\ProductoDao.cs" />
     <Compile Include="datos\HelperDB.cs" />
     <Compile Include="datos\Parametro.cs" />
@@ -97,6 +99,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="servicios\GestorPresupuesto.cs" />
     <Compile Include="servicios\GestorProducto.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <EmbeddedResource Include="formularios\Frm_Alta_Presupuesto.resx">

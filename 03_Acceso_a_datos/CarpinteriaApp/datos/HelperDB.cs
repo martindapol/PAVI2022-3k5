@@ -13,8 +13,9 @@ namespace CarpinteriaApp.datos
     class HelperDB
     {
         private SqlConnection cnn;
+        private static HelperDB instancia;
 
-        public HelperDB()
+        private HelperDB()
         {
             cnn = new SqlConnection(Properties.Resources.cnnString);
         }
@@ -82,53 +83,18 @@ namespace CarpinteriaApp.datos
 
         }
 
-        public bool ConfirmarPresupuesto(Presupuesto oPresupuesto)
+        public static HelperDB GetInstancia()
         {
-            bool ok = true;
-
-            SqlCommand cmd = new SqlCommand();
-
-            cnn.Open();
-            cmd.Connection = cnn;
-            cmd.CommandText = "SP_INSERTAR_MAESTRO";
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@cliente", oPresupuesto.Cliente);
-            cmd.Parameters.AddWithValue("@dto", oPresupuesto.Descuento);
-            cmd.Parameters.AddWithValue("@total", oPresupuesto.CalcularTotal());
-
-            //parámetro de salida:
-            SqlParameter pOut = new SqlParameter();
-            pOut.ParameterName = "@presupuesto_nro";
-            pOut.DbType = DbType.Int32;
-            pOut.Direction = ParameterDirection.Output;
-            cmd.Parameters.Add(pOut);
-            cmd.ExecuteNonQuery();
-
-            int presupuestoNro = (int)pOut.Value;
-
-            SqlCommand cmdDetalle;
-            int detalleNro = 1;
-            foreach (DetallePresupuesto item in oPresupuesto.Detalles)
-            {
-                cmdDetalle = new SqlCommand();
-
-                cmdDetalle.Connection = cnn;
-                cmdDetalle.CommandText = "SP_INSERTAR_MAESTRO";
-                cmdDetalle.CommandType = CommandType.StoredProcedure;
-                cmdDetalle.Parameters.AddWithValue("@presupuesto_nro", presupuestoNro);
-                cmdDetalle.Parameters.AddWithValue("@detalle", detalleNro);
-                cmdDetalle.Parameters.AddWithValue("@id_producto", item.Producto.ProductoNro);
-                cmdDetalle.Parameters.AddWithValue("@cantidad", item.Cantidad);
-                cmd.ExecuteNonQuery();
-
-
-                detalleNro++;
-            }
-
-            cnn.Close();
-
-            return ok;
+            if (instancia == null)
+                instancia = new HelperDB();
+            return instancia;
         }
+
+        public SqlConnection ObtenerConexion()
+        {
+            return cnn;
+        }
+      
     }
 }
 

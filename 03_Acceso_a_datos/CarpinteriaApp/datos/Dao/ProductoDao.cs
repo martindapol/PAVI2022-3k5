@@ -41,7 +41,7 @@ namespace CarpinteriaApp.datos.Dao
             parametros.Add(new Parametro("@nombre", nombre));
             parametros.Add(new Parametro("@activo", activo));
 
-            DataTable resultados = new HelperDB().ConsultaSQL(query, parametros);
+            DataTable resultados = HelperDB.GetInstancia().ConsultaSQL(query, parametros);
             foreach (DataRow fila in resultados.Rows)
             {
                 Producto aux = new Producto();
